@@ -10,7 +10,9 @@ __pycache__/
 .coverage
 htmlcov/
 
-.file_dedicated_to_obtaining_demo_files.py
+# Local helper scripts not tracked in this repo
+dat_to_tiff.py
+file_dedicated_to_obtaining_demo_files.py
 
 # Virtual environments
 .venv/

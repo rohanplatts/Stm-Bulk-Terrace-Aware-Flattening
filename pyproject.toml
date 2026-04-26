@@ -24,13 +24,9 @@ dependencies = [
 [project.scripts]
 stm-flatten = "stm_flatten:main"
 stm-flatten-gui = "stm_flatten_gui:main"
-stm-demo = "file_dedicated_to_obtaining_demo_files:main"
-dat-to-tiff = "dat_to_tiff:main"
 
 [tool.setuptools]
 py-modules = [
   "stm_flatten",
   "stm_flatten_gui",
-  "dat_to_tiff",
-  "file_dedicated_to_obtaining_demo_files",
 ]
