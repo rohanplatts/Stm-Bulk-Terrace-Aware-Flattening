@@ -10,11 +10,4 @@ Each `*_demo.png` has four panels:
 3. Naive global quadratic flattening.
 4. `stm_flatten` masked flattening.
 
-Regenerate the images with:
 
-```powershell
-python .\file_dedicated_to_obtaining_demo_files.py --input_dir .\in --output_dir .\demo
-```
-
-Raw `.dat` files are intentionally not tracked by default. Place local DAT files
-in `in/` before regenerating.
