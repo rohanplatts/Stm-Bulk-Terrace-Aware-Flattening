@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stm-autoflatten"
+version = "0.1.0"
+description = "Conservative batch flattening for STM topography images with DAT/TIFF/JPEG support and a review GUI."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "STM Autoflatten contributors" }
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "scikit-image",
+  "Pillow",
+  "matplotlib",
+  "tifffile",
+]
+
+[project.scripts]
+stm-flatten = "stm_flatten:main"
+stm-flatten-gui = "stm_flatten_gui:main"
+stm-demo = "file_dedicated_to_obtaining_demo_files:main"
+dat-to-tiff = "dat_to_tiff:main"
+
+[tool.setuptools]
+py-modules = [
+  "stm_flatten",
+  "stm_flatten_gui",
+  "dat_to_tiff",
+  "file_dedicated_to_obtaining_demo_files",
+]
