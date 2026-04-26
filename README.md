@@ -5,9 +5,9 @@ workflow. The software is designed for atomic-resolution copper-style STM data
 with terraces, step edges, drift, tilt, and scanner bow.
 
 The key scientific constraint is that real terrace step heights should be
-preserved. The algorithm masks step edges and defects, fits slow backgrounds
-with independent per-region offsets, and subtracts only the slow polynomial
-background.
+preserved. The algorithm masks step edges and defects, fits backgrounds
+with independent per-region offsets, and subtracts only the polynomial
+background, without the offset.
 
 ## What It Does
 
@@ -15,17 +15,28 @@ background.
 - For `.dat`, parses only forward topography (`FT`) and scales to native metre
   units.
 - Processes a whole folder automatically.
-- Chooses no correction, plane correction, or quadratic correction.
-- Preserves terrace offsets instead of forcing terraces to equal height.
-- Writes diagnostics and per-image JSON reports.
-- Provides a GUI for review, parameter tuning, subset reruns, QC, and export.
+- Masks step edges and defects. 
+- Based upon topography of within terrace regions, chooses no correction, plane correction, or quadratic correction.
+- Preserves terrace offsets instead of stitching
+- Writes per image JSON diagnostics.
+- Provides an optional GUI for use.
+
+## DEMO: 
+
+in `\demo` pngs comparing:
+
+1. Forward-topography display.
+2. Naive global plane flattening.
+3. Naive global quadratic flattening.
+4. `stm_flatten` masked flattening. (this code)
+
+are included. 
 
 ## Recommended Workflow
 
-For scientific work, use `.dat` or float32 TIFF input. JPEG input is supported
-for convenience, but it is a display proxy rather than calibrated height data.
+For scientific work, use `.dat` or float32 TIFF input. 
 
-1. Put DAT files in `in/`.
+1. Put DAT/TIFF files in `in/`, 
 2. Launch the GUI.
 3. Run all images.
 4. Review the scrollable image table.
@@ -83,35 +94,11 @@ If `.\in` contains `.dat` files, those are processed preferentially. Converted
 TIFF/JPEG files in the same folder are ignored by default to avoid duplicate
 processing.
 
-## Generate Demo Comparisons
-
-The demo generator compares:
-
-1. Forward-topography display.
-2. Naive global plane flattening.
-3. Naive global quadratic flattening.
-4. `stm_flatten` masked flattening.
-
-```powershell
-python .\file_dedicated_to_obtaining_demo_files.py --input_dir .\in --output_dir .\demo
-```
-
-The generated examples are in `demo/`.
-
-## Convert DAT to TIFF
-
-This is optional because `stm_flatten.py` can now read DAT files directly.
-
-```powershell
-python .\dat_to_tiff.py --input_dir .\in --output_dir .\intiff
-```
 
 ## Important Files
 
 - `stm_flatten.py`: scientific flattening pipeline and CLI.
 - `stm_flatten_gui.py`: operator GUI.
-- `dat_to_tiff.py`: standalone DAT-to-TIFF converter.
-- `file_dedicated_to_obtaining_demo_files.py`: demo comparison generator.
 - `docs/ALGORITHM.md`: procedural explanation of the flattening method.
 - `demo/`: generated comparison images.
 
@@ -124,7 +111,7 @@ Per processed image:
 - `*_flattened.png`: quick-look preview.
 - `*_background.png`: removed background preview.
 - `*_fit_mask.png`: fitting mask preview.
-- `*_diagnostic.png`: multi-panel diagnostic.
+- `*_diagnostic.png`: multiple panels summarising the image pipeline.
 - `*_report.json`: parameter and decision report.
 
 The GUI `Export accepted` command exports only user-facing image outputs:
@@ -132,17 +119,6 @@ The GUI `Export accepted` command exports only user-facing image outputs:
 - TIFF for DAT/TIFF sources.
 - JPEG for JPEG sources.
 
-## Notes For Contributors
-
-Raw DAT/TIFF inputs and generated run folders are ignored by default. Demo PNGs
-are intentionally trackable so the repository can demonstrate why the method is
-useful.
-
-Run quick checks:
-
-```powershell
-python -m py_compile .\stm_flatten.py .\stm_flatten_gui.py .\dat_to_tiff.py .\file_dedicated_to_obtaining_demo_files.py
-```
 
 ## License
 

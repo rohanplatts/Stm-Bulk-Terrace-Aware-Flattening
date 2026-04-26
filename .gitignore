@@ -10,6 +10,8 @@ __pycache__/
 .coverage
 htmlcov/
 
+.file_dedicated_to_obtaining_demo_files.py
+
 # Virtual environments
 .venv/
 venv/

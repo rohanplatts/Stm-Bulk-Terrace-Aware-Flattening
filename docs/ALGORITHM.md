@@ -129,8 +129,8 @@ The GUI's `Export accepted` command exports only image files:
 
 ## Limitations
 
-- JPEG inputs are display products, not calibrated scientific height data.
 - DAT parsing currently uses only forward topography.
 - Sine scan mode is not supported.
 - The algorithm is not a substitute for manual inspection; the GUI is intended
   to support review, subset reruns, and QC.
+- cos(\theta) tilt correction is not currently applied. 
